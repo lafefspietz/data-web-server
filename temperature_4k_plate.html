@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <!--
+
+-->
+
+
+<link href="data:image/x-icon;base6r4,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAP//AP///wANAP8A5Dz6ABueRwAAt/8A6BonABo86AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREREREREAAAEREREREQCIgREREd3dwAAB3d3d3d3d3d3d3d3d3d3d3d3d3VVVVVVVQAFVVAAVVVQIiBRAiIBEQIAIBECAAERAgAgFgIABmYCIiBmAiIGZgIiIGYCIgZmYCIAaIAAMzMzAAiIiIiIiIiIiIiIiIiIiIiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon">
+
+   <title>4k Plate</title>    
+   <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"></script>
+
+</head>
+<body> 
+
+<style>
+body{
+    overflow:none;
+}
+main{
+    position:absolute;
+    right:0px;
+    top:0px;
+}
+</style>
+<script>
+
+
+jsondata = {};
+
+function setup() {
+  createCanvas(innerWidth,innerHeight);   
+    var httpc = new XMLHttpRequest();
+    httpc.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            jsondata = JSON.parse(this.responseText);
+            displaytemp();
+            //jsondata.temperature;
+            //jsondata.time;
+
+        }
+    };
+    httpc.open("GET", "load-file.php?filename=4kplatetemp.json", true);
+    httpc.send();
+
+    
+}
+
+
+
+
+
+
+function draw(){
+
+    var httpc = new XMLHttpRequest();
+    httpc.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            jsondata = JSON.parse(this.responseText);
+            background(255);
+            strokeWeight(0);  
+            textSize(150);    
+            fill("blue");
+            stroke("blue");
+            text("T_4k_plate = ",50,150);
+            textSize(250);    
+            text(jsondata.temperature.toString() + " K",50,480);
+            text(jsondata.time,50,height - 200);
+
+        }
+    };
+    httpc.open("GET", "load-file.php?filename=4kplatetemp.json", true);
+    httpc.send();
+
+}
+
+
+
+</script>
+</body>
+</html>
+
+
+    
+    
